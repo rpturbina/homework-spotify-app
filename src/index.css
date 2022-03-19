@@ -10,6 +10,7 @@
   --active-save-btn: hsl(209, 100%, 33%);
   --music-box-border: 1px solid #ccc;
   --song-title-border: 1px solid #ccc;
+  --transition: all 0.3s ease;
 }
 
 /* Global Styling */
@@ -57,6 +58,7 @@ li {
   background-color: #fff;
   box-shadow: 0 10px 20px 0 rgba(122, 120, 120, 0.267);
   margin-bottom: 50px;
+  transition: var(--transition);
 }
 
 .form {
@@ -109,7 +111,7 @@ li {
   letter-spacing: 1px;
   cursor: pointer;
   opacity: 0.8;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
 .btn:hover {
@@ -129,6 +131,7 @@ li {
 }
 
 .btn--play {
+  width: 150px;
   background-color: var(--clr-play-btn);
 }
 
@@ -148,6 +151,7 @@ li {
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 10px 20px 0 rgba(122, 120, 120, 0.267);
+  transition: var(--transition);
 }
 
 .album-picture {
@@ -191,7 +195,7 @@ li {
 /* Media Query */
 @media only screen and (min-width: 1024px) {
   .wrapper {
-    max-width: 1024px;
+    min-width: 1024px;
   }
 
   .playlist-form {
@@ -202,6 +206,7 @@ li {
 
   .music-list {
     display: flex;
+    justify-content: center;
     column-gap: 30px;
   }
 

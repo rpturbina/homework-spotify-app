@@ -84,7 +84,7 @@ function App() {
               <h2 className="song-title">Hati-Hati di Jalan</h2>
               <h3 className="song-artist">Tulus</h3>
               <h4 className="song-album">Manusia</h4>
-              <button className="btn btn--play">Play</button>
+              <button className="btn btn--play">Add to Playlist</button>
             </div>
           </section>
         </div>
