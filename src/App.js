@@ -33,21 +33,65 @@ const getData = async () => {
 getData();
 
 function App() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert("Playlist successfully created.");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main className="main">
+        <div className="wrapper">
+          <section className="playlist-form">
+            <h1 className="heading">Create Playlist</h1>
+            <form id="form" className="form" onSubmit={handleSubmit}>
+              <ul>
+                <li>
+                  <label htmlFor="title" className="form__label">
+                    Title
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Add a title"
+                    className="form__input"
+                  />
+                </li>
+                <li>
+                  <label htmlFor="description" className="form__label">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    id="description"
+                    placeholder="Add an optional description"
+                    className="form__textarea"
+                  ></textarea>
+                </li>
+              </ul>
+              <input type="submit" value="Save" className="btn btn--save" />
+            </form>
+          </section>
+          <section className="music-list">
+            <div className="music-box">
+              <img
+                className="album-picture"
+                src="https://i.scdn.co/image/ab67616d0000b273b55d26c578e30129b0a7e86e"
+                alt="Manusia"
+              />
+              <h2 className="song-title">Hati-Hati di Jalan</h2>
+              <h3 className="song-artist">Tulus</h3>
+              <h4 className="song-album">Manusia</h4>
+              <button className="btn btn--play">Play</button>
+            </div>
+          </section>
+        </div>
+      </main>
+      <footer className="footer">
+        <p>Made with 🤍 by rpturbina © 2022</p>
+      </footer>
     </div>
   );
 }
