@@ -1,96 +1,53 @@
-import axios from "axios";
+import data from "./data/index";
 
-const ENDPOINT =
-  "https://gist.githubusercontent.com/aryapradipta9/e6492383477803b233916e01f36d5465/raw/66942c739d66d3774303f84071696aa865a07077/single-sample.json";
-
-const SPOTIFY_API_KEY = process.env.REACT_APP_SPOTIFY_KEY;
-
-console.log(SPOTIFY_API_KEY);
-
-const getData = async () => {
-  try {
-    // * Using Fetch API
-    // const response = await fetch(ENDPOINT);
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error: ${response.status}`);
-    // }
-    // const jsonData = await response.json();
-
-    // * Using Axios
-    const response = await axios.get(ENDPOINT, {});
-    if (response.status !== 200) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    const jsonData = response.data;
-
-    console.log(jsonData);
-    return jsonData;
-  } catch (error) {
-    alert(error);
-  }
-};
-
-getData();
+/**
+ * TODO: Homework-Module-2-Session-2
+ * * Create a page in React which contains the following data.
+ * * The layout will be similiar to previous exercise, wihtout the form part only.
+//  * * Images of the Album
+//  * * Song title
+//  * * Song Artist
+//  * * A button that says (Select)
+ *
+ * * Create all of them in App.js in one component
+ * * Download the data here and put that in your react app
+ */
 
 function App() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert("Playlist successfully created.");
-  };
+  const {
+    album: {
+      images: [{ url: albumImgUrl }],
+      name: albumName,
+    },
+    artists: [{ name: artistName }],
+    name: songTitle,
+  } = data;
+  console.log(data);
+
+  const myGithub = "https://github.com/rpturbina";
 
   return (
     <div className="App">
       <main className="main">
-        <div className="wrapper">
-          <section className="playlist-form">
-            <h1 className="heading">Create Playlist</h1>
-            <form id="form" className="form" onSubmit={handleSubmit}>
-              <ul>
-                <li>
-                  <label htmlFor="title" className="form__label">
-                    Title
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    id="title"
-                    name="title"
-                    placeholder="Add a title"
-                    className="form__input"
-                  />
-                </li>
-                <li>
-                  <label htmlFor="description" className="form__label">
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    id="description"
-                    placeholder="Add an optional description"
-                    className="form__textarea"
-                  ></textarea>
-                </li>
-              </ul>
-              <input type="submit" value="Save" className="btn btn--save" />
-            </form>
-          </section>
-          <section className="music-list">
-            <div className="music-box">
-              <img
-                className="album-picture"
-                src="https://i.scdn.co/image/ab67616d0000b273b55d26c578e30129b0a7e86e"
-                alt="Manusia"
-              />
-              <h2 className="song-title">Hati-Hati di Jalan</h2>
-              <h3 className="song-artist">Tulus</h3>
-              <h4 className="song-album">Manusia</h4>
-              <button className="btn btn--play">Add to Playlist</button>
-            </div>
-          </section>
-        </div>
+        <section className="album-container">
+          <img src={albumImgUrl} alt={albumName} className="album-image" />
+          <div className="song-info">
+            <h1 className="song-title">{songTitle}</h1>
+            <h2 className="song-artist">{artistName}</h2>
+            <button type="button" className="btn btn--select">
+              Select
+            </button>
+          </div>
+        </section>
       </main>
       <footer className="footer">
-        <p>Made with 🤍 by rpturbina © 2022</p>
+        <p>
+          Made with 🤍 by{" "}
+          <a href={myGithub} rel="noopener noreferrer" target="_blank">
+            rpturbina
+          </a>{" "}
+          ©2022
+        </p>
       </footer>
     </div>
   );
