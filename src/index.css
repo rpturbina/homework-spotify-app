@@ -39,8 +39,8 @@ a {
   min-height: 100vh;
 }
 
-/* Album Container Styling */
-.album-container {
+/* Album Track Styling */
+.album-track {
   margin: auto;
   max-width: 320px;
   padding: 20px;
@@ -116,7 +116,7 @@ a {
 
 /* Media Query */
 @media only screen and (min-width: 1024px) {
-  .album-container {
+  .album-track {
     display: flex;
     max-width: 650px;
     align-items: center;
