@@ -39,8 +39,8 @@ a {
   min-height: 100vh;
 }
 
-/* Album Track Styling */
-.album-track {
+/* Song Track Styling */
+.song-track {
   margin: auto;
   max-width: 320px;
   padding: 20px;
