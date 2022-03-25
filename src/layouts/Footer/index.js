@@ -1,4 +1,4 @@
-import { myLinks } from "../../data";
+import { myLinks } from "../../data/OneSample";
 
 const Footer = () => {
   const { github } = myLinks;

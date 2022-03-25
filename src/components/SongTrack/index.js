@@ -1,18 +1,7 @@
 import AlbumImg from "../AlbumImg";
 import SongInfo from "../SongInfo";
-import { data } from "../../data";
 
-const SongTrack = () => {
-  const {
-    album: {
-      images: [{ url: albumImgSrc }],
-      name: albumName,
-    },
-    artists: [{ name: songArtist }],
-    name: songTitle,
-  } = data;
-  console.log(data);
-
+const SongTrack = ({ albumImgSrc, albumName, songTitle, songArtist }) => {
   return (
     <div className="song-track">
       <AlbumImg src={albumImgSrc} alt={albumName} />
