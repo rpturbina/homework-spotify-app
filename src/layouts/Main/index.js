@@ -1,9 +1,9 @@
-import SongTrack from "../../components/SongTrack";
+import TableOfTracks from "../../components/TableOfTracks";
 
 const Main = () => {
   return (
     <main className="main">
-      <SongTrack />
+      <TableOfTracks />
     </main>
   );
 };

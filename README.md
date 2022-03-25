@@ -4,6 +4,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 2 - Session 3 - List & Looping, Conditional Rendering**
+
+Now, we will create a table of tracks
+
+* Download the data [here](https://gist.githubusercontent.com/aryapradipta9/4085f18a47101f10f685a6140385b2bf/raw/e32426bc2d954274e984b03c601f14c08eb47a0b/all-sample.js). This contains array of tracks.
+* Loop the data and create track components for each track listed.
+
 ### **Homework - Module 2 - Session 2 - Components and Props**
 
 From previous homework, convert the track elements (which contains song title, image, album, etc) into components. Move it outside main component.
