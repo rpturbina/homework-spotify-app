@@ -4,6 +4,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 3 - Session 1 - State & Event Handling**
+
+* Have a link that when clicked, it redirects to Spotify Auth API.
+  * Read it more [here](https://developer.spotify.com/documentation/general/guides/authorization/implicit-grant/) in the **Implicit Grand Flow** section
+  * For the scope, use playlist-modify-private
+  * Set up the callback URL as localhost:3000 in the Spotify Dashboard
+  * The callback will contains the Access Token, which you'll need for next request. Store that in a state
+
+* Create a search song functionalities
+  * Have a Search textbox button, when the button is clicked, it calls [Spotify Search API](https://developer.spotify.com/documentation/web-api/reference/#category-search). Later on, show the results on the Tracks Table created before.
+
 ### **Homework - Module 2 - Session 3 - List & Looping, Conditional Rendering**
 
 Now, we will create a table of tracks
