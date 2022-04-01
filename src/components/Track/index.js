@@ -8,8 +8,7 @@ const Track = (props) => {
         <h2 className="song-title">{songTitle}</h2>
         <h3 className="song-artist">{songArtist}</h3>
         <button className="btn btn--select" onClick={onSelect}>
-          {/* {selectState ? "Deselect" : "Select"} */}
-          Select
+          {selectState ? "Deselect" : "Select"}
         </button>
       </div>
     </div>

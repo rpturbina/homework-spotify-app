@@ -8,7 +8,6 @@ const TrackList = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [selected, setSelected] = useState([]);
-  // const [selectState, setSelectState] = useState({});
 
   useEffect(() => {
     if (window.location.hash) {
@@ -16,40 +15,26 @@ const TrackList = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   // isSelected(uri);
-  // });
-
   const handleSearchChange = (e) => setSearchInput(e.target.value);
 
-  const handleTrackSelect = (e, track) => {
-    // const { key } = e.target;
-    // console.log(e.target);
-    // if (selected) {
-    //   setSelected(false);
-    // } else {
-    //   setSelected(true);
-    // }
+  const handleTrackSelect = (track) => {
     const index = selected.findIndex((selected) => selected.uri === track.uri);
     console.log(track);
     if (index === -1) {
       setSelected([track, ...selected]);
-      // setSelectState({ ...selectState, [key]: true });
-      // return "Deselect";
     } else {
       const newSelected = selected.filter((selected) => selected.uri !== track.uri);
       setSelected(newSelected);
-      // return "Select";
     }
   };
 
-  // const isSelected = (id) => {
-  //   const index = selected.findIndex((trackId) => trackId === id);
-  //   if (index === -1) {
-  //     return false;
-  //   }
-  //   return true;
-  // };
+  const isSelected = (track) => {
+    const index = selected.findIndex((selected) => selected.uri === track.uri);
+    if (index === -1) {
+      return false;
+    }
+    return true;
+  };
 
   const handleSearchSubmit = async (e) => {
     if (searchInput) {
@@ -141,6 +126,10 @@ const TrackList = () => {
         </a>
       </form>
       {tracks.map((track) => {
+        const newTrack = {
+          ...track,
+          isSelect: isSelected(track),
+        };
         const {
           album: {
             images: [{ url }],
@@ -149,7 +138,8 @@ const TrackList = () => {
           artists: [{ name: artist }],
           name: title,
           uri,
-        } = track;
+          isSelect,
+        } = newTrack;
         return (
           <Track
             key={uri}
@@ -157,8 +147,8 @@ const TrackList = () => {
             albumName={name}
             songTitle={title}
             songArtist={artist}
-            onSelect={(e) => handleTrackSelect(e, track)}
-            // value={selectState[uri]}
+            onSelect={() => handleTrackSelect(track)}
+            selectState={isSelect}
           />
         );
       })}
