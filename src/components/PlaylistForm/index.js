@@ -1,37 +1,37 @@
-const CreatePlaylistForm = () => {
+const PlaylistForm = () => {
   return (
-    <section class="playlist-form">
-      <form id="form" class="form">
-        <h2 class="heading">Create Playlist</h2>
+    <section className="playlist-form">
+      <form id="form" className="form">
+        <h2 className="heading">Create Playlist</h2>
         <ul>
           <li>
-            <label for="title" class="form__label">
+            <label htmlFor="playlisyTitle" className="form__label">
               Title
             </label>
             <input
-              required
-              minlength="10"
+              id="playlistTitle"
               type="text"
-              id="title"
-              name="title"
+              name="playlistTitle"
+              required
+              minLength="10"
               placeholder="Add a title"
-              class="form__input"
+              className="form__input"
             />
           </li>
           <li>
-            <label for="description" class="form__label">
+            <label htmlFor="playlistDescription" className="form__label">
               Description
             </label>
             <textarea
-              name="description"
-              id="description"
+              id="playlistDescription"
+              name="playlistDescription"
               placeholder="Add an optional description"
-              class="form__textarea"
+              className="form__textarea"
             ></textarea>
           </li>
         </ul>
         {/* <!-- <button>Submit</button> --> */}
-        <button type="submit" class="btn btn--save">
+        <button type="submit" className="btn btn--save">
           Create playlist
         </button>
       </form>
@@ -40,4 +40,4 @@ const CreatePlaylistForm = () => {
   );
 };
 
-export default CreatePlaylistForm;
+export default PlaylistForm;
