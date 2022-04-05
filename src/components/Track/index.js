@@ -2,7 +2,7 @@ const Track = (props) => {
   const { imageUrl, albumName, songTitle, songArtist, onSelect, selectState } = props;
 
   return (
-    <div className="song-track">
+    <li className="song-track">
       <img src={imageUrl} alt={albumName} className="album-image" />
       <div className="song-info">
         <h2 className="song-title">{songTitle}</h2>
@@ -11,7 +11,7 @@ const Track = (props) => {
           {selectState ? "Deselect" : "Select"}
         </button>
       </div>
-    </div>
+    </li>
   );
 };
 
