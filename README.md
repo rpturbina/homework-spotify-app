@@ -4,6 +4,36 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 3 - Session 3 - Hooks**
+
+* Create a "create playlist" from with the following fields
+  * Title, minimum 10 characters
+  * Description
+  * A button to submit
+* When the button is clicked, create a new playlist with those title and description, with songs that were selected previously
+  * Use Get Current User's Profile, Create a Playlist, and Add Items to a Playlist API to achieve this. Read more in the API Docs.
+  * Playlist should be private and collaborative should be false
+
+### **Homework - Module 3 - Session 2 - Hooks**
+
+Add feature to select and deselect songs
+
+* Use the uri as the key indentifier for looping
+* Build this feature using Hooks
+* When a song is selected, the button label should be "Deselect". When the song isn't selected, the button label should be "Select"
+* When user searcher for another song, the selected songs should still be maintained in the list
+
+### **Homework - Module 3 - Session 1 - State & Event Handling**
+
+* Have a link that when clicked, it redirects to Spotify Auth API.
+  * Read it more [here](https://developer.spotify.com/documentation/general/guides/authorization/implicit-grant/) in the **Implicit Grand Flow** section
+  * For the scope, use playlist-modify-private
+  * Set up the callback URL as localhost:3000 in the Spotify Dashboard
+  * The callback will contains the Access Token, which you'll need for next request. Store that in a state
+
+* Create a search song functionalities
+  * Have a Search textbox button, when the button is clicked, it calls [Spotify Search API](https://developer.spotify.com/documentation/web-api/reference/#category-search). Later on, show the results on the Tracks Table created before.
+
 ### **Homework - Module 2 - Session 3 - List & Looping, Conditional Rendering**
 
 Now, we will create a table of tracks
