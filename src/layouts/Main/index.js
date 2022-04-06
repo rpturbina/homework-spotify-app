@@ -8,7 +8,7 @@ import SearchTrack from "../../components/SearchTrack";
 import TrackList from "../../components/TrackList";
 
 const Main = () => {
-  const [accessToken, setAccessToken] = useState("");
+  // const [accessToken, setAccessToken] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [tracks, setTracks] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -19,7 +19,7 @@ const Main = () => {
   });
   const [userProfile, setUserProfile] = useState(null);
   const dispatch = useDispatch();
-  // const currentAccessToken = useSelector((state) => state.accessToken);
+  const currentAccessToken = useSelector((state) => state.accessToken);
 
   useEffect(() => {
     if (window.location.hash) {
@@ -28,10 +28,10 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    if (accessToken) {
-      getUserProfile(accessToken);
+    if (currentAccessToken) {
+      getUserProfile(currentAccessToken);
     }
-  }, [accessToken]);
+  }, [currentAccessToken]);
 
   const getAccessToken = (url) => {
     const currentLocation = String(url).split("#")[1];
@@ -45,7 +45,7 @@ const Main = () => {
     const EXPIRES_IN = params.get("expires_in");
     setTimeout(() => {
       // setAccessToken("");
-      dispatch(authToken(ACCESS_TOKEN));
+      dispatch(authToken(""));
       alert("Your access token is expired. Please log in again.");
     }, EXPIRES_IN * 1000);
 
@@ -84,7 +84,7 @@ const Main = () => {
       const response = await fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
         method: "POST",
         headers: new Headers({
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${currentAccessToken}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         }),
@@ -106,7 +106,7 @@ const Main = () => {
       const response = await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
         method: "POST",
         headers: new Headers({
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${currentAccessToken}`,
           "Content-Type": "application/json",
         }),
         body: JSON.stringify(data),
@@ -212,7 +212,7 @@ const Main = () => {
 
   return (
     <main className="main">
-      <LogIn accessToken={accessToken} userProfile={userProfile} handleLogIn={handleLogIn} />
+      <LogIn accessToken={currentAccessToken} userProfile={userProfile} handleLogIn={handleLogIn} />
       <PlaylistForm
         handlePlaylistChange={handlePlaylistChange}
         playlist={playlist}
@@ -221,7 +221,7 @@ const Main = () => {
       <SearchTrack
         handleSearchChange={handleSearchChange}
         searchInput={searchInput}
-        handleSearchSubmit={(e) => handleSearchSubmit(e, accessToken)}
+        handleSearchSubmit={(e) => handleSearchSubmit(e, currentAccessToken)}
       />
       <TrackList tracks={tracks} handleSelectTrack={handleSelectTrack} isSelected={isSelected} />
     </main>

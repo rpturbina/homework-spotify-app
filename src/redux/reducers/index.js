@@ -1,6 +1,6 @@
 const initialState = { accessToken: "" };
 
-export const loginReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case "login":
       return { accessToken: action.payload };
@@ -8,3 +8,5 @@ export const loginReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export { loginReducer };
