@@ -4,9 +4,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 4 - Session 1 - Redux**
+
+Move the access token state to redux store. The app should still behaves like it is before.
+
 ### **Homework - Module 3 - Session 3 - Forms & Lifting State Up**
 
-* Create a "create playlist" from with the following fields
+* Create a "create playlist" form with the following fields
   * Title, minimum 10 characters
   * Description
   * A button to submit

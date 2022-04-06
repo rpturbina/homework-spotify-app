@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { authToken } from "../../redux/actions";
 
 import LogIn from "../../components/LogIn";
 import PlaylistForm from "../../components/PlaylistForm";
@@ -16,18 +18,18 @@ const Main = () => {
     tracks: selected,
   });
   const [userProfile, setUserProfile] = useState(null);
+  const dispatch = useDispatch();
+  // const currentAccessToken = useSelector((state) => state.accessToken);
 
   useEffect(() => {
     if (window.location.hash) {
       getAccessToken(window.location);
-      console.log("Use Effect 1");
     }
   }, []);
 
   useEffect(() => {
     if (accessToken) {
       getUserProfile(accessToken);
-      console.log("Use Effect 2");
     }
   }, [accessToken]);
 
@@ -37,11 +39,13 @@ const Main = () => {
     const state = params.get("state");
     const storedState = localStorage.getItem("spotify_auth_state");
     const ACCESS_TOKEN = params.get("access_token");
-    setAccessToken(ACCESS_TOKEN);
+    // setAccessToken(ACCESS_TOKEN);
+    dispatch(authToken(ACCESS_TOKEN));
 
     const EXPIRES_IN = params.get("expires_in");
     setTimeout(() => {
-      setAccessToken("");
+      // setAccessToken("");
+      dispatch(authToken(ACCESS_TOKEN));
       alert("Your access token is expired. Please log in again.");
     }, EXPIRES_IN * 1000);
 
@@ -62,9 +66,9 @@ const Main = () => {
       }).then((response) => response.json());
       const { display_name, id } = user;
       setUserProfile({ display_name, id });
-      console.log(user);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error);
     }
   };
 
@@ -86,7 +90,6 @@ const Main = () => {
         }),
         body: JSON.stringify(data),
       }).then((response) => response.json());
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -109,10 +112,10 @@ const Main = () => {
         body: JSON.stringify(data),
         position: 0,
       }).then((response) => response.json());
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
+      alert(error);
     }
   };
 
@@ -170,7 +173,6 @@ const Main = () => {
           throw new Error("Tracks not found.");
         }
         setTracks(result.tracks.items);
-        console.log(result);
       } catch (error) {
         console.error(error);
         alert(error);
@@ -180,7 +182,6 @@ const Main = () => {
 
   const handleSelectTrack = (track) => {
     const index = selected.findIndex((selected) => selected.uri === track.uri);
-    console.log(track);
     if (index === -1) {
       setSelected([track, ...selected]);
       setPlaylist({ ...playlist, tracks: [track, ...selected] });
@@ -206,7 +207,6 @@ const Main = () => {
 
   const handlePlaylistSubmit = (e) => {
     e.preventDefault();
-    // console.log(e.target);
     postItemsToPlaylist();
   };
 
