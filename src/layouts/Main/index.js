@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { authToken } from "../../redux/actions";
 
 import LogIn from "../../components/LogIn";
 import PlaylistForm from "../../components/PlaylistForm";
@@ -6,7 +8,7 @@ import SearchTrack from "../../components/SearchTrack";
 import TrackList from "../../components/TrackList";
 
 const Main = () => {
-  const [accessToken, setAccessToken] = useState("");
+  // const [accessToken, setAccessToken] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [tracks, setTracks] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -16,20 +18,20 @@ const Main = () => {
     tracks: selected,
   });
   const [userProfile, setUserProfile] = useState(null);
+  const dispatch = useDispatch();
+  const currentAccessToken = useSelector((state) => state.accessToken);
 
   useEffect(() => {
     if (window.location.hash) {
       getAccessToken(window.location);
-      console.log("Use Effect 1");
     }
   }, []);
 
   useEffect(() => {
-    if (accessToken) {
-      getUserProfile(accessToken);
-      console.log("Use Effect 2");
+    if (currentAccessToken) {
+      getUserProfile(currentAccessToken);
     }
-  }, [accessToken]);
+  }, [currentAccessToken]);
 
   const getAccessToken = (url) => {
     const currentLocation = String(url).split("#")[1];
@@ -37,11 +39,13 @@ const Main = () => {
     const state = params.get("state");
     const storedState = localStorage.getItem("spotify_auth_state");
     const ACCESS_TOKEN = params.get("access_token");
-    setAccessToken(ACCESS_TOKEN);
+    // setAccessToken(ACCESS_TOKEN);
+    dispatch(authToken(ACCESS_TOKEN));
 
     const EXPIRES_IN = params.get("expires_in");
     setTimeout(() => {
-      setAccessToken("");
+      // setAccessToken("");
+      dispatch(authToken(""));
       alert("Your access token is expired. Please log in again.");
     }, EXPIRES_IN * 1000);
 
@@ -62,9 +66,9 @@ const Main = () => {
       }).then((response) => response.json());
       const { display_name, id } = user;
       setUserProfile({ display_name, id });
-      console.log(user);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error);
     }
   };
 
@@ -80,13 +84,12 @@ const Main = () => {
       const response = await fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
         method: "POST",
         headers: new Headers({
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${currentAccessToken}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         }),
         body: JSON.stringify(data),
       }).then((response) => response.json());
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
@@ -103,16 +106,16 @@ const Main = () => {
       const response = await fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
         method: "POST",
         headers: new Headers({
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${currentAccessToken}`,
           "Content-Type": "application/json",
         }),
         body: JSON.stringify(data),
         position: 0,
       }).then((response) => response.json());
-      console.log(response);
       return response;
     } catch (error) {
       console.error(error);
+      alert(error);
     }
   };
 
@@ -170,7 +173,6 @@ const Main = () => {
           throw new Error("Tracks not found.");
         }
         setTracks(result.tracks.items);
-        console.log(result);
       } catch (error) {
         console.error(error);
         alert(error);
@@ -180,7 +182,6 @@ const Main = () => {
 
   const handleSelectTrack = (track) => {
     const index = selected.findIndex((selected) => selected.uri === track.uri);
-    console.log(track);
     if (index === -1) {
       setSelected([track, ...selected]);
       setPlaylist({ ...playlist, tracks: [track, ...selected] });
@@ -206,13 +207,12 @@ const Main = () => {
 
   const handlePlaylistSubmit = (e) => {
     e.preventDefault();
-    // console.log(e.target);
     postItemsToPlaylist();
   };
 
   return (
     <main className="main">
-      <LogIn accessToken={accessToken} userProfile={userProfile} handleLogIn={handleLogIn} />
+      <LogIn accessToken={currentAccessToken} userProfile={userProfile} handleLogIn={handleLogIn} />
       <PlaylistForm
         handlePlaylistChange={handlePlaylistChange}
         playlist={playlist}
@@ -221,7 +221,7 @@ const Main = () => {
       <SearchTrack
         handleSearchChange={handleSearchChange}
         searchInput={searchInput}
-        handleSearchSubmit={(e) => handleSearchSubmit(e, accessToken)}
+        handleSearchSubmit={(e) => handleSearchSubmit(e, currentAccessToken)}
       />
       <TrackList tracks={tracks} handleSelectTrack={handleSelectTrack} isSelected={isSelected} />
     </main>
