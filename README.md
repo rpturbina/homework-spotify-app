@@ -1,8 +1,16 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and built to do my homework for Generasi Gigih 2.0 - Frontend Engineering Path
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and built to do my homework for Generasi Gigih 2.0 - Frontend Engineering Track
 
 ## **Update**
+
+### **Homework - Module 4 - Session 2 - React Router**
+
+* Move the create playlist page URL to /create-playlist
+* The Create Playlist page only accessible when user already login. If user haven't logged in, redirect to root URL (/)
+* For the root URL (/)
+  * If user haven't logged in, show the Login link
+  * If user already logged in,redirect to Create Playlist page
 
 ### **Homework - Module 4 - Session 1 - Redux**
 

@@ -21,7 +21,7 @@
 }
 
 body {
-  background-color: #f2f2f2;
+  /* background-color: #444; */
   background-image: linear-gradient(45deg, #0093e9 0%, #80d0c7 100%);
   position: relative;
   transition: var(--transition);
@@ -237,9 +237,10 @@ li {
 }
 
 .btn--access-token {
-  width: fit-content;
-  margin-top: 5px;
+  margin-inline: auto;
+  margin-bottom: 15px;
   font-size: 14px;
+  background-color: transparent;
 }
 
 /* Footer Styling */
