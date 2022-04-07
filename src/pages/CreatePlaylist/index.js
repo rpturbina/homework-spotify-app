@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { authToken } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
-import LogIn from "../../components/LogIn";
 import PlaylistForm from "../../components/PlaylistForm";
-import SearchTrack from "../../components/SearchTrack";
+import SearchTrack from "../../components/SearchBar";
 import TrackList from "../../components/TrackList";
 
-import store from "../../redux/store";
-
 const CreatePlaylist = () => {
-  // const [accessToken, setAccessToken] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [tracks, setTracks] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -20,46 +15,13 @@ const CreatePlaylist = () => {
     tracks: selected,
   });
   const [userProfile, setUserProfile] = useState(null);
-  const dispatch = useDispatch();
   const currentAccessToken = useSelector((state) => state.accessToken);
-
-  useEffect(() => {
-    if (window.location.hash) {
-      getAccessToken(window.location);
-      window.history.pushState({}, null, "/");
-    }
-  }, []);
 
   useEffect(() => {
     if (currentAccessToken) {
       getUserProfile(currentAccessToken);
     }
   }, [currentAccessToken]);
-
-  const getAccessToken = (url) => {
-    const currentLocation = String(url).split("#")[1];
-    const params = new URLSearchParams(currentLocation);
-    const state = params.get("state");
-    const storedState = localStorage.getItem("spotify_auth_state");
-    const ACCESS_TOKEN = params.get("access_token");
-    // setAccessToken(ACCESS_TOKEN);
-    dispatch(authToken(ACCESS_TOKEN));
-
-    console.log(store.getState());
-
-    const EXPIRES_IN = params.get("expires_in");
-    setTimeout(() => {
-      // setAccessToken("");
-      dispatch(authToken(""));
-      alert("Your access token is expired. Please log in again.");
-    }, EXPIRES_IN * 1000);
-
-    if (ACCESS_TOKEN && (state === null || state !== storedState)) {
-      alert("There was an error during the authentication");
-    } else {
-      localStorage.removeItem("spotify_auth_state");
-    }
-  };
 
   const getUserProfile = async (accessToken) => {
     try {
@@ -119,8 +81,12 @@ const CreatePlaylist = () => {
       }).then((response) => response.json());
       console.log(response);
 
-      if (response) {
+      if (response.hasOwnProperty("snapshot_id")) {
         alert("Playlist successfully created.");
+      }
+
+      if (response.error) {
+        alert(response.error.message);
       }
 
       return response;
@@ -128,34 +94,6 @@ const CreatePlaylist = () => {
       console.error(error);
       alert(error);
     }
-  };
-
-  const handleLogIn = () => {
-    const generateRandomString = (length = 16) => {
-      let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let str = "";
-      for (let i = 0; i < length; i++) {
-        str += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return str;
-    };
-
-    const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-    const redirect_uri = "http://localhost:3000/";
-
-    const state = generateRandomString(16);
-
-    localStorage.setItem("spotify_auth_state", state);
-    const scope = "playlist-modify-private";
-
-    let url = "https://accounts.spotify.com/authorize";
-    url += "?response_type=token";
-    url += `&client_id=${encodeURIComponent(client_id)}`;
-    url += `&scope=${encodeURIComponent(scope)}`;
-    url += `&redirect_uri=${encodeURIComponent(redirect_uri)}`;
-    url += `&state=${encodeURIComponent(state)}`;
-
-    window.location = url;
   };
 
   const handleSearchChange = (e) => setSearchInput(e.target.value);
@@ -219,11 +157,11 @@ const CreatePlaylist = () => {
   const handlePlaylistSubmit = (e) => {
     e.preventDefault();
     postItemsToPlaylist();
+    setSelected([]);
   };
 
   return (
     <main className="main">
-      <LogIn accessToken={currentAccessToken} userProfile={userProfile} handleLogIn={handleLogIn} />
       <PlaylistForm
         handlePlaylistChange={handlePlaylistChange}
         playlist={playlist}

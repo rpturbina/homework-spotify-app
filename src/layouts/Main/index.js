@@ -1,44 +1,21 @@
 import CreatePlaylist from "../../pages/CreatePlaylist";
-import { Route, Switch, Redirect, Link } from "react-router-dom";
-import { useState } from "react";
+import LandingPage from "../../pages/LandingPage";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Main = () => {
-  // const isLoggedIn = true;
-  const [loggedIn, setLoggedIn] = useState(false);
+  const currentAccessToken = useSelector((state) => state.accessToken);
 
-  const handleLogin = () => setLoggedIn(true);
-
-  const handleLogout = () => setLoggedIn(false);
   return (
-    <>
-      {/* <Link to="/create-playlist">Create Playlist</Link> */}
-      {/* <Switch>
-        <Route exact path="/">
-          <Link to="/create-playlist">Create Playlist</Link>
-          <h2>Login Page</h2>
-          {loggedIn ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <button onClick={handleLogin}>Login</button>
-          )}
-        </Route>
-        <Route path="/create-playlist">
-          {loggedIn ? (
-            <>
-              <h2>Create Playlist Page</h2>
-              <CreatePlaylist />
-              <button onClick={handleLogout}>Logout</button>
-            </>
-          ) : (
-            <Redirect to="/" />
-          )}
-        </Route>
-      </Switch> */}
-      <CreatePlaylist />
-    </>
+    <Switch>
+      <Route exact path="/create-playlist">
+        {currentAccessToken ? <CreatePlaylist /> : <Redirect to="/" />}
+      </Route>
+      <Route exact path="/">
+        {currentAccessToken ? <Redirect to="/create-playlist" /> : <LandingPage />}
+      </Route>
+    </Switch>
   );
-
-  // return <CreatePlaylist />;
 };
 
 export default Main;

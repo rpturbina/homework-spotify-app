@@ -30,7 +30,6 @@ body {
 a {
   color: aliceblue;
   text-decoration: none;
-  border-bottom: 1px dotted aliceblue;
 }
 
 li {
@@ -252,4 +251,8 @@ li {
   text-align: center;
   font-size: 14px;
   color: #fff;
+}
+
+.footer a {
+  border-bottom: 1px dotted aliceblue;
 }
