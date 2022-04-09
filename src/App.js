@@ -1,20 +1,16 @@
-// import Footer from "./layouts/Footer";
+import Footer from "./components/Footer";
 import Main from "./layouts/Main";
 
 /**
- * TODO: Homework-Module-4-Session-2
- * * Move the create playlist page URL to /create-playlist
- * * The Create Playlist page only accessible when user already login. If user haven't logged in, redirect to root URL (/)
- * * For the root URL (/)
- * * * If user haven't logged in, show the Login link
- * * * If user already logged in,redirect to Create Playlist page
+ * TODO: Homework-Module-4-Session-3
+ * * Fix any impure functions / mutable codes, and also fix the eslint problems (if any)
  */
 
 function App() {
   return (
     <div className="App">
       <Main />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

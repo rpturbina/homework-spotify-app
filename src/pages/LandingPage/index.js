@@ -1,68 +1,40 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authToken } from "../../redux/actions";
+import { requestAuth } from "../../libs/auth";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.accessToken);
 
   useEffect(() => {
-    if (window.location.hash) {
-      getAccessToken(window.location);
-    }
-  });
+    if (!isLoggedIn && window.location.hash) {
+      const hash = window.location.hash.split("#")[1];
+      const params = new URLSearchParams(hash);
 
-  const getAccessToken = (url) => {
-    const currentLocation = String(url).split("#")[1];
-    const params = new URLSearchParams(currentLocation);
-    const state = params.get("state");
-    const storedState = localStorage.getItem("spotify_auth_state");
-    const ACCESS_TOKEN = params.get("access_token");
-    dispatch(authToken(ACCESS_TOKEN));
+      const state = params.get("state");
+      const storedState = localStorage.getItem("spotify_auth_state");
 
-    const EXPIRES_IN = params.get("expires_in");
-    setTimeout(() => {
-      dispatch(authToken(""));
-      alert("Your access token is expired. Please log in again.");
-    }, EXPIRES_IN * 1000);
+      const accessToken = params.get("access_token");
+      dispatch(authToken(accessToken));
 
-    if (ACCESS_TOKEN && (state === null || state !== storedState)) {
-      alert("There was an error during the authentication");
-    } else {
-      localStorage.removeItem("spotify_auth_state");
-    }
-  };
+      const expiresInMilisecond = params.get("expires_in") * 1000;
+      setTimeout(() => {
+        dispatch(authToken(""));
+        alert("Your access token is expired. Please log in again.");
+      }, expiresInMilisecond);
 
-  const handleLogIn = () => {
-    const generateRandomString = (length = 16) => {
-      let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let str = "";
-      for (let i = 0; i < length; i++) {
-        str += chars.charAt(Math.floor(Math.random() * chars.length));
+      if (accessToken && (state === null || state !== storedState)) {
+        alert("There was an error during the authentication");
+      } else {
+        localStorage.removeItem("spotify_auth_state");
       }
-      return str;
-    };
-
-    const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-    const redirect_uri = "http://localhost:3000/";
-
-    const state = generateRandomString(16);
-
-    localStorage.setItem("spotify_auth_state", state);
-    const scope = "playlist-modify-private";
-
-    let url = "https://accounts.spotify.com/authorize";
-    url += "?response_type=token";
-    url += `&client_id=${encodeURIComponent(client_id)}`;
-    url += `&scope=${encodeURIComponent(scope)}`;
-    url += `&redirect_uri=${encodeURIComponent(redirect_uri)}`;
-    url += `&state=${encodeURIComponent(state)}`;
-
-    window.location = url;
-  };
+    }
+  }, []);
 
   return (
     <main className="main">
-      <button className="btn btn--access-token" onClick={handleLogIn}>
+      <button className="btn btn--access-token" onClick={requestAuth}>
         Login with Spotify
       </button>
     </main>
