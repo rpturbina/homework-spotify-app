@@ -1,4 +1,4 @@
-const SearchTrack = (props) => {
+const SearchBar = (props) => {
   const { handleSearchSubmit, handleSearchChange, searchInput } = props;
   return (
     <form className="search-bar" onSubmit={handleSearchSubmit}>
@@ -15,11 +15,11 @@ const SearchTrack = (props) => {
         placeholder="Enter the keyword for search the tracks"
         required
       />
-      <button type="submit" className="btn btn--search">
+      <button type="submit" className="btn btn--search" disabled={!searchInput}>
         Search
       </button>
     </form>
   );
 };
 
-export default SearchTrack;
+export default SearchBar;

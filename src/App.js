@@ -1,13 +1,9 @@
-import Footer from "./layouts/Footer";
+import Footer from "./components/Footer";
 import Main from "./layouts/Main";
 
 /**
- * TODO: Homework-Module-3-Session-2
- * * Add feature to select and deselect songs
- * * * Use the uri as the key identifier for looping
- * * * Build this feature using Hooks
- * * * When a song is selected, the button label should be 'Deselect'. When the song isn't selected, the button label should be 'Select'.
- * * * When user searches for another song, the selected songs should still be maintained in the list
+ * TODO: Homework-Module-4-Session-3
+ * * Fix any impure functions / mutable codes, and also fix the eslint problems (if any)
  */
 
 function App() {

@@ -1,5 +1,5 @@
 const PlaylistForm = (props) => {
-  const { handlePlaylistChange, handlePlaylistSubmit, playlist } = props;
+  const { handlePlaylistChange, handlePlaylistSubmit, playlist, isSelectedEmpty } = props;
   return (
     <section className="playlist-form">
       <form id="form" className="form" onSubmit={handlePlaylistSubmit}>
@@ -35,7 +35,7 @@ const PlaylistForm = (props) => {
             ></textarea>
           </li>
         </ul>
-        <button type="submit" className="btn btn--save">
+        <button type="submit" className="btn btn--save" disabled={isSelectedEmpty}>
           Create playlist
         </button>
       </form>

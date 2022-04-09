@@ -21,7 +21,7 @@
 }
 
 body {
-  background-color: #f2f2f2;
+  /* background-color: #444; */
   background-image: linear-gradient(45deg, #0093e9 0%, #80d0c7 100%);
   position: relative;
   transition: var(--transition);
@@ -30,7 +30,6 @@ body {
 a {
   color: aliceblue;
   text-decoration: none;
-  border-bottom: 1px dotted aliceblue;
 }
 
 li {
@@ -203,6 +202,14 @@ li {
   transition: var(--transition);
 }
 
+.btn:disabled {
+  background-color: #ccc;
+  cursor: initial;
+  box-shadow: none;
+  opacity: 1;
+  color: #fff;
+}
+
 .btn:hover {
   opacity: 1;
 }
@@ -237,9 +244,10 @@ li {
 }
 
 .btn--access-token {
-  width: fit-content;
-  margin-top: 5px;
+  margin-inline: auto;
+  margin-bottom: 15px;
   font-size: 14px;
+  background-color: transparent;
 }
 
 /* Footer Styling */
@@ -251,4 +259,8 @@ li {
   text-align: center;
   font-size: 14px;
   color: #fff;
+}
+
+.footer a {
+  border-bottom: 1px dotted aliceblue;
 }

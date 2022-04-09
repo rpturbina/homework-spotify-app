@@ -1,3 +1,3 @@
-const authToken = (accessToken) => ({ type: "login", payload: accessToken });
+const authToken = (accessToken) => ({ type: "auth", payload: accessToken });
 
 export { authToken };
