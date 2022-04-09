@@ -15,7 +15,7 @@ const SearchBar = (props) => {
         placeholder="Enter the keyword for search the tracks"
         required
       />
-      <button type="submit" className="btn btn--search">
+      <button type="submit" className="btn btn--search" disabled={!searchInput}>
         Search
       </button>
     </form>
