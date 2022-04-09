@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 4 - Session 3 - Clean Code & ESLint**
+
+Fix any impure functions / mutable codes, and also fix the eslint problems (if any).
+
 ### **Homework - Module 4 - Session 2 - React Router**
 
 * Move the create playlist page URL to /create-playlist
