@@ -29,7 +29,7 @@ const CreatePlaylist = () => {
   const handleSearchSubmit = async (e, accessToken = "") => {
     if (searchInput) {
       e.preventDefault();
-      const tracksLimit = 10;
+      const tracksLimit = 12;
       const tracks = await searchTracks({
         accessToken: accessToken,
         query: searchInput,
