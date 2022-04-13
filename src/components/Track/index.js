@@ -4,9 +4,9 @@ const Track = (props) => {
   return (
     <li className="song-track">
       <img src={imageUrl} alt={albumName} className="album-image" />
-      <div className="song-info">
-        <h2 className="song-title">{songTitle}</h2>
-        <h3 className="song-artist">{songArtist}</h3>
+      <div className="song__info">
+        <h2 className="song__title">{songTitle}</h2>
+        <h3 className="song__artist">{songArtist}</h3>
         <button className="btn btn--select" onClick={onSelect}>
           {selectState ? "Deselect" : "Select"}
         </button>
