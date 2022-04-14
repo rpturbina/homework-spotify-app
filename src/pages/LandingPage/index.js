@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Center, Flex } from "@chakra-ui/react";
+
 import { authToken } from "../../redux/actions";
 import { requestAuth } from "../../libs/auth";
 
@@ -33,11 +35,24 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <main className="main">
-      <button className="btn btn--access-token" onClick={requestAuth}>
-        Login with Spotify
-      </button>
-    </main>
+    // <main className="main">
+    //   <button className="btn btn--access-token" onClick={requestAuth}>
+    //     Login with Spotify
+    //   </button>
+    //   <Button colorScheme="blue" onClick={requestAuth}>
+    //     Login with Spotify
+    //   </Button>
+    //   <Box bg="transparent" w="100%" p={4} color="white">
+    //     This is the Box
+    //   </Box>
+    // </main>
+    <Flex as="main" justify="center" align="center">
+      <Center bg="transparent" h="100vh" color="white">
+        <Button colorScheme="blue" onClick={requestAuth}>
+          Login with Spotify
+        </Button>
+      </Center>
+    </Flex>
   );
 };
 

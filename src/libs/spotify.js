@@ -31,7 +31,7 @@ const getUser = async (accessToken) => {
  * @param {object} data data object must contain accessToken, query, and LIMIT
  * @returns object that contain track items
  */
-const searchTracks = async ({ accessToken, query, LIMIT = 10 }) => {
+const getTracks = async ({ accessToken, query, LIMIT = 10 }) => {
   const params = new URLSearchParams({
     type: "track",
     q: query,
@@ -121,4 +121,4 @@ const postItemsToPlaylist = async ({ playlistId, selectedTracks, accessToken }) 
   }
 };
 
-export { getUser, searchTracks, postPlaylist, postItemsToPlaylist };
+export { getUser, getTracks, postPlaylist, postItemsToPlaylist };

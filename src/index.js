@@ -1,16 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import store from "./redux/store";
+
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/provider";
+import { localStorageManager, theme } from "@chakra-ui/react";
+
+// import "./index.css";
+import App from "./App";
+import store from "./redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <ChakraProvider resetCSS={true} theme={theme} colorModeManager={localStorageManager}>
+          <App />
+        </ChakraProvider>
       </Router>
     </Provider>
   </React.StrictMode>,

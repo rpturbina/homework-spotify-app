@@ -1,4 +1,4 @@
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import Main from "./layouts/Main";
 
 /**
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Main />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

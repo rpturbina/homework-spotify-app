@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Flex } from "@chakra-ui/react";
 
 import PlaylistForm from "../../components/PlaylistForm";
 import SearchTrack from "../../components/SearchBar";
 import TrackList from "../../components/TrackList";
 
-import { getUser, postItemsToPlaylist, postPlaylist, searchTracks } from "../../libs/spotify";
+import { getUser, postItemsToPlaylist, postPlaylist, getTracks } from "../../libs/spotify";
+import Header from "../../layouts/Header";
 
 const CreatePlaylist = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -30,7 +32,7 @@ const CreatePlaylist = () => {
     if (searchInput) {
       e.preventDefault();
       const tracksLimit = 12;
-      const tracks = await searchTracks({
+      const tracks = await getTracks({
         accessToken: accessToken,
         query: searchInput,
         LIMIT: tracksLimit,
@@ -93,22 +95,26 @@ const CreatePlaylist = () => {
   };
 
   return (
-    <main className="main">
+    <Flex as="main" justify="center" align="center" direction="column">
+      <Header>
+        <SearchTrack
+          handleSearchChange={handleSearchChange}
+          searchInput={searchInput}
+          handleSearchSubmit={(e) => handleSearchSubmit(e, currentAccessToken)}
+        />
+      </Header>
       <PlaylistForm
         handlePlaylistChange={handlePlaylistChange}
         playlist={playlist}
         handlePlaylistSubmit={handlePlaylistSubmit}
         isSelectedEmpty={!selected.length}
       />
-      <SearchTrack
-        handleSearchChange={handleSearchChange}
-        searchInput={searchInput}
-        handleSearchSubmit={(e) => handleSearchSubmit(e, currentAccessToken)}
-      />
       {tracks.length > 0 && (
         <TrackList tracks={tracks} handleSelectTrack={handleSelectTrack} isSelected={isSelected} />
       )}
-    </main>
+    </Flex>
+    // <main className="main">
+    // </main>
   );
 };
 

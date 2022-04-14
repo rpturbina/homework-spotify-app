@@ -18,6 +18,7 @@ const TrackList = (props) => {
           artists: [{ name: artist }],
           name: title,
           uri,
+          duration_ms: duration,
           isSelect,
         } = newTrack;
         return (
@@ -27,6 +28,7 @@ const TrackList = (props) => {
             albumName={name}
             songTitle={title}
             songArtist={artist}
+            songDuration={duration}
             onSelect={() => handleSelectTrack(track)}
             selectState={isSelect}
           />

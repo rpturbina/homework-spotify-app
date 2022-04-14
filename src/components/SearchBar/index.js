@@ -1,12 +1,17 @@
+import { Input } from "@chakra-ui/react";
+import { FormControl, FormLabel } from "@chakra-ui/react";
+
 const SearchBar = (props) => {
   const { handleSearchSubmit, handleSearchChange, searchInput } = props;
   return (
-    <form className="search-bar" onSubmit={handleSearchSubmit}>
-      <label htmlFor="keyword" className="search__label">
+    // <form className="search-bar" onSubmit={handleSearchSubmit}>
+    <FormControl as={"form"} onSubmit={handleSearchSubmit}>
+      {/* <label htmlFor="keyword" className="search__label">
         Spotify Track Search
-      </label>
+      </label> */}
+      <FormLabel htmlFor="keyword">Spotify Track Search</FormLabel>
       <div className="input-wrapper">
-        <input
+        {/* <input
           id="keyword"
           name="keyword"
           type="text"
@@ -15,12 +20,25 @@ const SearchBar = (props) => {
           value={searchInput}
           placeholder="Enter the keyword for search the tracks"
           required
+        /> */}
+        <Input
+          id="keyword"
+          name="keyword"
+          type="text"
+          onChange={handleSearchChange}
+          value={searchInput}
+          placeholder="Enter the keyword for search the tracks"
+          required
         />
       </div>
-      <button type="submit" className="btn btn--search" disabled={!searchInput}>
+      {/* <button type="submit" className="btn btn--search" disabled={!searchInput}>
         Search
-      </button>
-    </form>
+      </button> */}
+      {/* <Button type="submit" colorScheme="blue" disabled={!searchInput}>
+        Search
+      </Button> */}
+    </FormControl>
+    // </form>
   );
 };
 
