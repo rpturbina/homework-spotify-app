@@ -4,6 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 5 - Session 2 - UI Component Library**
+
+* Start using UI component library/just using CSS. You're free to choose any library/just using CSS.
+* You can freely choose which components that will be changed
+* Example: modify search input to material-ui
+
 ### **Homework - Module 5 - Session 1 - CSS Grid & Flexbox**
 
 Modify the existing components, to use Flexbox and Grid.
