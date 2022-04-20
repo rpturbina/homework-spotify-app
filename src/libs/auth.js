@@ -38,7 +38,7 @@ const requestAuth = () => {
     state: state,
   };
   const url = generateAuthUrl(params);
-  location.assign(url);
+  window.location.assign(url);
 };
 
 export { requestAuth };

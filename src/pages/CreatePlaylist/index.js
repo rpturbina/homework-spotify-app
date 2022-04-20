@@ -21,9 +21,13 @@ const CreatePlaylist = () => {
   const [userProfile, setUserProfile] = useState(null);
   const currentAccessToken = useSelector((state) => state.accessToken);
 
-  useEffect(async () => {
-    const user = await getUser(currentAccessToken);
-    setUserProfile(user);
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = await getUser(currentAccessToken);
+      setUserProfile(user);
+    };
+
+    fetchData();
   }, [currentAccessToken]);
 
   const handleSearchChange = (e) => setSearchInput(e.target.value);

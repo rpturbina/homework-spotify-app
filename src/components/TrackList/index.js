@@ -8,7 +8,7 @@ const TrackList = (props) => {
       {tracks.map((track) => {
         const newTrack = {
           ...track,
-          isSelect: isSelected(track),
+          isSelect: isSelected(track) ?? false,
         };
         const {
           album: {

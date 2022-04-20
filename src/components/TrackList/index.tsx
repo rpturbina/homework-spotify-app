@@ -1,14 +1,15 @@
 import Track from "../Track";
+import { Track as SpotifyTrack } from "../../types/spotify";
 
-const TrackList = (props) => {
+const TrackList = (props: any) => {
   const { tracks, handleSelectTrack, isSelected } = props;
 
   return (
     <ul className="track-list">
-      {tracks.map((track) => {
+      {tracks.map((track: SpotifyTrack) => {
         const newTrack = {
           ...track,
-          isSelect: isSelected(track),
+          isSelect: isSelected(track) ?? false,
         };
         const {
           album: {

@@ -1,6 +1,6 @@
 import { Box, Image, Button } from "@chakra-ui/react";
 
-const Track = (props) => {
+const Track = (props: any) => {
   const { imageUrl, albumName, songTitle, songArtist, songDuration, onSelect, selectState } = props;
 
   return (
