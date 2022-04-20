@@ -9,7 +9,7 @@ const TrackList = (props: any) => {
       {tracks.map((track: SpotifyTrack) => {
         const newTrack = {
           ...track,
-          isSelect: isSelected(track) ?? false,
+          isSelect: isSelected(track),
         };
         const {
           album: {
