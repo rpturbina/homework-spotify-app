@@ -1,13 +1,10 @@
-import {
-  // useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Flex, Input, IconButton } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
 import { searchTracks } from "../../api/spotify";
-import { setTracks } from "../../redux/actions";
+import { setTracks, setLoading } from "../../redux/actions";
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -16,6 +13,7 @@ const SearchBar = () => {
 
   const handleSearchSubmit = async (e, accessToken = "") => {
     if (searchInput) {
+      dispatch(setLoading(true));
       e.preventDefault();
       const tracksLimit = 12;
       const tracks = await searchTracks({
@@ -24,6 +22,7 @@ const SearchBar = () => {
         LIMIT: tracksLimit,
       });
       dispatch(setTracks(tracks));
+      dispatch(setLoading(false));
     }
   };
   return (

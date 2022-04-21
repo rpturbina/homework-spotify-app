@@ -3,6 +3,7 @@ const initialState = {
   searchTracksResult: [],
   selectedTracks: [],
   userProfile: null,
+  loadingState: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -15,6 +16,8 @@ const appReducer = (state = initialState, action) => {
       return { ...state, selectedTracks: action.payload };
     case "set-user":
       return { ...state, userProfile: action.payload };
+    case "loading":
+      return { ...state, loadingState: action.payload };
     default:
       return state;
   }

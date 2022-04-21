@@ -1,4 +1,4 @@
-import { Flex, Image, Box, Text, Button, Heading } from "@chakra-ui/react";
+import { Flex, Image, Box, Text, Button, Heading, SlideFade } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 
 import millisToMinutesAndSeconds from "../../utils/millisToMinutesAndSeconds";
@@ -9,6 +9,8 @@ const Track = (props) => {
 
   const dispatch = useDispatch();
   const currentSelectedTracks = useSelector((state) => state.selectedTracks);
+
+  const currentLoadingState = useSelector((state) => state.loadingState);
 
   const isSelected = (trackUri) => {
     return currentSelectedTracks.some((selected) => selected.uri === trackUri);
@@ -31,37 +33,39 @@ const Track = (props) => {
   };
 
   return (
-    <Flex
-      as="li"
-      columnGap="1rem"
-      alignItems="center"
-      bg="whiteAlpha.200"
-      padding="0.5rem"
-      borderRadius="md"
-      border="1px"
-      borderColor="gray.600"
-    >
-      <Image borderRadius="sm" maxWidth="120px" src={imageUrl} alt={albumName} />
-      <Box>
-        <Heading as="h2" size="sm">
-          {songTitle}
-        </Heading>
-        <Text as="h3">{songArtist}</Text>
-        <Text as="h4" opacity="0.6" letterSpacing="1px">
-          {millisToMinutesAndSeconds(songDuration)}
-        </Text>
-      </Box>
-      <Button
-        colorScheme="teal"
-        onClick={() => handleSelectTrack(trackUri)}
-        marginLeft="auto"
-        marginRight="1rem"
-        minWidth="auto"
-        variant={isSelected(trackUri) ? "outline" : "solid"}
+    <SlideFade in={!currentLoadingState} offsetY="50px" unmountOnExit={currentLoadingState}>
+      <Flex
+        as="li"
+        columnGap="1rem"
+        alignItems="center"
+        bg="whiteAlpha.200"
+        padding="0.5rem"
+        borderRadius="md"
+        border="1px"
+        borderColor="gray.600"
       >
-        {isSelected(trackUri) ? "Deselect" : "Select"}
-      </Button>
-    </Flex>
+        <Image borderRadius="sm" maxWidth="120px" src={imageUrl} alt={albumName} />
+        <Box>
+          <Heading as="h2" size="sm">
+            {songTitle}
+          </Heading>
+          <Text as="h3">{songArtist}</Text>
+          <Text as="h4" opacity="0.6" letterSpacing="1px">
+            {millisToMinutesAndSeconds(songDuration)}
+          </Text>
+        </Box>
+        <Button
+          colorScheme="blue"
+          onClick={() => handleSelectTrack(trackUri)}
+          marginLeft="auto"
+          marginRight="1rem"
+          minWidth="auto"
+          variant={isSelected(trackUri) ? "outline" : "solid"}
+        >
+          {isSelected(trackUri) ? "Deselect" : "Select"}
+        </Button>
+      </Flex>
+    </SlideFade>
   );
 };
 

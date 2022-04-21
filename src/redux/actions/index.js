@@ -18,4 +18,9 @@ const setUser = (userProfile) => ({
   payload: userProfile,
 });
 
-export { authToken, setTracks, selectTrack, setUser };
+const setLoading = (loadingState) => ({
+  type: "loading",
+  payload: loadingState,
+});
+
+export { authToken, setTracks, selectTrack, setUser, setLoading };
