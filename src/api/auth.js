@@ -1,16 +1,5 @@
-/**
- * Generates a random string containing numbers and letters
- * @param {number} length The lenght of the string
- * @returns {string} The generated string
- */
-const generateRandomString = (length = 16) => {
-  let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let str = "";
-  for (let i = 0; i < length; i++) {
-    str += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return str;
-};
+import generateRandomString from "../utils/generateRandomString";
+import { BASE_SPOTIFY_AUTH_URL } from "../constant/url";
 
 /**
  * Generates an authorization url
@@ -19,11 +8,11 @@ const generateRandomString = (length = 16) => {
  */
 const generateAuthUrl = (params) => {
   const searchParams = new URLSearchParams(params);
-  return `https://accounts.spotify.com/authorize?${searchParams}`;
+  return `${BASE_SPOTIFY_AUTH_URL}?${searchParams}`;
 };
 
 /**
- * Request authorization by assign authorization url to location
+ * Request implicit grant flow authorization by assign authorization url to location
  */
 const requestAuth = () => {
   const state = generateRandomString(16);
@@ -38,7 +27,7 @@ const requestAuth = () => {
     state: state,
   };
   const url = generateAuthUrl(params);
-  location.assign(url);
+  window.location.assign(url);
 };
 
 export { requestAuth };

@@ -1,11 +1,17 @@
+import { Stack, useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import Header from "../../components/Header";
+import Main from "../../components/Main";
+import Footer from "../../components/Footer";
+
 import { authToken } from "../../redux/actions";
-import { requestAuth } from "../../libs/auth";
 
 const LandingPage = () => {
-  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.accessToken);
+  const dispatch = useDispatch();
+  const toast = useToast();
 
   useEffect(() => {
     if (!isLoggedIn && window.location.hash) {
@@ -21,23 +27,31 @@ const LandingPage = () => {
       const expiresInMilisecond = params.get("expires_in") * 1000;
       setTimeout(() => {
         dispatch(authToken(""));
-        alert("Your access token is expired. Please log in again.");
+        return toast({
+          title: "Woopsy!",
+          description: "Your access token is expired. Please log in again.",
+          status: "error",
+        });
       }, expiresInMilisecond);
 
       if (accessToken && (state === null || state !== storedState)) {
-        alert("There was an error during the authentication");
+        return toast({
+          title: "Woopsy!",
+          description: "There was an error during the authentication.",
+          status: "error",
+        });
       } else {
         localStorage.removeItem("spotify_auth_state");
       }
     }
-  }, []);
+  }, [toast, dispatch, isLoggedIn]);
 
   return (
-    <main className="main">
-      <button className="btn btn--access-token" onClick={requestAuth}>
-        Login with Spotify
-      </button>
-    </main>
+    <Stack minHeight="100vh" justifyContent="space-between" paddingInline="10vw">
+      <Header />
+      <Main />
+      <Footer />
+    </Stack>
   );
 };
 

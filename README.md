@@ -4,6 +4,22 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 5 - Session 2 - UI Component Library**
+
+* Start using UI component library/just using CSS. You're free to choose any library/just using CSS.
+* You can freely choose which components that will be changed
+* Example: modify search input to material-ui
+
+### **Homework - Module 5 - Session 1 - CSS Grid & Flexbox**
+
+Modify the existing components, to use Flexbox and Grid.
+
+* At minimum there should be one components that use Flexbox, and a different component that use Grid.
+* You can freely choose which components that will be changed.
+* Example:
+  * Grid used for Track Tables
+  * Flex used for song info (title, artist, etc)
+
 ### **Homework - Module 4 - Session 3 - Clean Code & ESLint**
 
 Fix any impure functions / mutable codes, and also fix the eslint problems (if any).

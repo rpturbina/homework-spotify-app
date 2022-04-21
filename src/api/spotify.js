@@ -1,7 +1,4 @@
-/**
- * Base url for Spotify Web API
- */
-const BASE_SPOTIFY_API_URL = "https://api.spotify.com/v1";
+import { BASE_SPOTIFY_API_URL } from "../constant/url";
 
 /**
  * Get detailed profile information about the current user (including the current user's username).
@@ -22,7 +19,6 @@ const getUser = async (accessToken) => {
     return user;
   } catch (error) {
     console.error(error);
-    alert(error);
   }
 };
 
@@ -62,7 +58,7 @@ const postPlaylist = async ({ userId, playlist, accessToken }) => {
       public: false,
       collaborative: false,
     };
-    const response = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+    const response = await fetch(`${BASE_SPOTIFY_API_URL}/users/${userId}/playlists`, {
       method: "POST",
       headers: new Headers({
         Authorization: `Bearer ${accessToken}`,
@@ -75,7 +71,6 @@ const postPlaylist = async ({ userId, playlist, accessToken }) => {
     return response;
   } catch (error) {
     console.error(error);
-    alert(error);
   }
 };
 
@@ -102,22 +97,9 @@ const postItemsToPlaylist = async ({ playlistId, selectedTracks, accessToken }) 
       fetchOptions
     ).then((response) => response.json());
     console.log(response);
-
-    const isSuccess = response["snapshot_id"];
-
-    if (isSuccess) {
-      alert("Playlist successfully created.");
-      return;
-    }
-
-    if (response.error) {
-      alert(response.error.message);
-    }
-
     return response;
   } catch (error) {
     console.error(error);
-    alert(error);
   }
 };
 
