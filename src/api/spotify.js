@@ -67,7 +67,6 @@ const postPlaylist = async ({ userId, playlist, accessToken }) => {
       }),
       body: JSON.stringify(data),
     }).then((response) => response.json());
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
@@ -96,7 +95,6 @@ const postItemsToPlaylist = async ({ playlistId, selectedTracks, accessToken }) 
       `${BASE_SPOTIFY_API_URL}/playlists/${playlistId}/tracks`,
       fetchOptions
     ).then((response) => response.json());
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);

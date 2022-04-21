@@ -5,7 +5,7 @@ import { requestAuth } from "../../api/auth";
 
 const LoginButton = () => {
   return (
-    <Button colorScheme="teal" leftIcon={<FaSpotify />} onClick={requestAuth}>
+    <Button colorScheme="blue" leftIcon={<FaSpotify />} onClick={requestAuth}>
       Login with Spotify
     </Button>
   );

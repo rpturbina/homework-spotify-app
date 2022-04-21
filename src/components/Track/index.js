@@ -55,7 +55,7 @@ const Track = (props) => {
           </Text>
         </Box>
         <Button
-          colorScheme="teal"
+          colorScheme="blue"
           onClick={() => handleSelectTrack(trackUri)}
           marginLeft="auto"
           marginRight="1rem"

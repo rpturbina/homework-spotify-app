@@ -1,7 +1,4 @@
-import {
-  // useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Flex, Input, IconButton } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";

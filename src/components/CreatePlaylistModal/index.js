@@ -28,12 +28,15 @@ import { selectTrack } from "../../redux/actions";
 const SelectedTrackTags = ({ currentSelectedTracks }) => {
   return (
     <Box mt={2}>
-      <Text>{currentSelectedTracks.length} tracks selected</Text>
-      <Wrap spacing={1}>
+      <Text>
+        {currentSelectedTracks.length} {currentSelectedTracks.length < 2 ? "track" : "tracks"}{" "}
+        selected
+      </Text>
+      <Wrap spacing={2} mt={2}>
         {currentSelectedTracks.map((track) => {
           return (
-            <Tag key={track.uri}>
-              {track.title} - {track.artist}
+            <Tag colorScheme="blue" key={track.uri}>
+              {track.title} by {track.artist}
             </Tag>
           );
         })}
@@ -140,7 +143,7 @@ const CreatePlaylistModal = ({ disabled }) => {
                 onChange={handlePlaylistChange}
               />
             </FormControl>
-            <FormControl id="description">
+            <FormControl id="description" mt={2}>
               <FormLabel>Description</FormLabel>
               <Textarea
                 name="description"
