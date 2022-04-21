@@ -1,23 +1,28 @@
-import Footer from "./components/Footer";
-import Main from "./layouts/Main";
-
+import CreatePlaylist from "./pages/CreatePlaylist";
+import LandingPage from "./pages/LandingPage";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 /**
- * TODO: Homework-Module-5-Session-1
- * * Modify the existing components, to use Flexbox and Grid.
- *   * At minimum there should be one components that use Flexbox, and a different component that use Grid.
- *   * You can freely choose which components that will be changed.
- *   * Example:
- *     * Grid used for Track Tables
- *     * Flex used for song info (title, artist, etc)
+ * TODO: Homework-Module-5-Session-2
+ * * Start using UI component library/just using CSS. You're free to choose any library/just using CSS.
+ * * You can freely choose which components that will be changed
+ * * Example: modify search input to material-ui
  */
 
-function App() {
+const App = () => {
+  const currentAccessToken = useSelector((state) => state.accessToken);
   return (
     <div className="App">
-      <Main />
-      <Footer />
+      <Switch>
+        <Route exact path="/create-playlist">
+          {currentAccessToken ? <CreatePlaylist /> : <Redirect to="/" />}
+        </Route>
+        <Route exact path="/">
+          {currentAccessToken ? <Redirect to="/create-playlist" /> : <LandingPage />}
+        </Route>
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,114 +1,54 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { Stack, Button, Flex } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import PlaylistForm from "../../components/PlaylistForm";
-import SearchTrack from "../../components/SearchBar";
+import Header from "../../components/Header";
+import Main from "../../components/Main";
+import SearchBar from "../../components/SearchBar";
 import TrackList from "../../components/TrackList";
-
-import { getUser, postItemsToPlaylist, postPlaylist, searchTracks } from "../../libs/spotify";
+import CreatePlaylistModal from "../../components/CreatePlaylistModal";
+import { selectTrack, setUser } from "../../redux/actions";
+import { getUser } from "../../api/spotify";
 
 const CreatePlaylist = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [tracks, setTracks] = useState([]);
-  const [selected, setSelected] = useState([]);
-  const [playlist, setPlaylist] = useState({
-    title: "",
-    description: "",
-    tracks: selected,
-  });
-  const [userProfile, setUserProfile] = useState(null);
   const currentAccessToken = useSelector((state) => state.accessToken);
+  const currentSelectedTracks = useSelector((state) => state.selectedTracks);
 
-  useEffect(async () => {
-    const user = await getUser(currentAccessToken);
-    setUserProfile(user);
-  }, [currentAccessToken]);
+  const dispatch = useDispatch();
 
-  const handleSearchChange = (e) => setSearchInput(e.target.value);
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = await getUser(currentAccessToken);
+      dispatch(setUser(user));
+    };
+    fetchData();
+  }, [dispatch, currentAccessToken]);
 
-  const handleSearchSubmit = async (e, accessToken = "") => {
-    if (searchInput) {
-      e.preventDefault();
-      const tracksLimit = 12;
-      const tracks = await searchTracks({
-        accessToken: accessToken,
-        query: searchInput,
-        LIMIT: tracksLimit,
-      });
-      setTracks(tracks);
-    }
-  };
-
-  const handleSelectTrack = (track) => {
-    const index = selected.findIndex((selected) => selected.uri === track.uri);
-
-    if (index === -1) {
-      setSelected([track, ...selected]);
-      setPlaylist({ ...playlist, tracks: [track, ...selected] });
-    } else {
-      const newSelected = selected.filter((selected) => selected.uri !== track.uri);
-
-      setSelected(newSelected);
-      setPlaylist({ ...playlist, tracks: [newSelected] });
-    }
-  };
-
-  const isSelected = (track) => {
-    const index = selected.findIndex((selected) => selected.uri === track.uri);
-
-    if (index === -1) {
-      return false;
-    }
-    return true;
-  };
-
-  const handlePlaylistChange = (e) => {
-    const { name, value } = e.target;
-    setPlaylist({ ...playlist, [name]: value });
-  };
-
-  const handlePlaylistSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!selected.length) {
-      alert("Please select track");
-      return;
-    }
-
-    const { id: userId } = userProfile;
-    const { id: playlistId } = await postPlaylist({
-      userId: userId,
-      playlist: playlist,
-      accessToken: currentAccessToken,
-    });
-
-    postItemsToPlaylist({
-      playlistId: playlistId,
-      selectedTracks: selected,
-      accessToken: currentAccessToken,
-    });
-
-    setSelected([]);
-    setPlaylist({ ...playlist, title: "", description: "" });
-  };
+  const currentTracksResult = useSelector((state) => state.searchTracksResult);
 
   return (
-    <main className="main">
-      <PlaylistForm
-        handlePlaylistChange={handlePlaylistChange}
-        playlist={playlist}
-        handlePlaylistSubmit={handlePlaylistSubmit}
-        isSelectedEmpty={!selected.length}
-      />
-      <SearchTrack
-        handleSearchChange={handleSearchChange}
-        searchInput={searchInput}
-        handleSearchSubmit={(e) => handleSearchSubmit(e, currentAccessToken)}
-      />
-      {tracks.length > 0 && (
-        <TrackList tracks={tracks} handleSelectTrack={handleSelectTrack} isSelected={isSelected} />
-      )}
-    </main>
+    <Stack minHeight="100vh" paddingInline="1rem" minWidth="300px">
+      <Header>
+        <SearchBar />
+      </Header>
+      <Main>
+        <Flex as="main" justifyContent="flex-end" columnGap="1rem" paddingBlock="1rem">
+          <Button
+            leftIcon={<DeleteIcon />}
+            colorScheme="red"
+            onClick={() => dispatch(selectTrack([]))}
+            type="button"
+            variant="ghost"
+            disabled={currentSelectedTracks.length === 0}
+          >
+            Clear Selection
+          </Button>
+          <CreatePlaylistModal disabled={currentSelectedTracks.length === 0} />
+        </Flex>
+        {currentTracksResult.length > 0 && <TrackList tracks={currentTracksResult} />}
+      </Main>
+    </Stack>
   );
 };
 

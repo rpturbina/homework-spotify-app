@@ -1,26 +1,50 @@
-const SearchBar = (props) => {
-  const { handleSearchSubmit, handleSearchChange, searchInput } = props;
+import {
+  // useEffect,
+  useState,
+} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Flex, Input, IconButton } from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
+
+import { searchTracks } from "../../api/spotify";
+import { setTracks } from "../../redux/actions";
+
+const SearchBar = () => {
+  const [searchInput, setSearchInput] = useState("");
+  const dispatch = useDispatch();
+  const currentAccessToken = useSelector((state) => state.accessToken);
+
+  const handleSearchSubmit = async (e, accessToken = "") => {
+    if (searchInput) {
+      e.preventDefault();
+      const tracksLimit = 12;
+      const tracks = await searchTracks({
+        accessToken: accessToken,
+        query: searchInput,
+        LIMIT: tracksLimit,
+      });
+      dispatch(setTracks(tracks));
+    }
+  };
   return (
-    <form className="search-bar" onSubmit={handleSearchSubmit}>
-      <label htmlFor="keyword" className="search__label">
-        Spotify Track Search
-      </label>
-      <div className="input-wrapper">
-        <input
-          id="keyword"
-          name="keyword"
-          type="text"
-          className="search__input"
-          onChange={handleSearchChange}
-          value={searchInput}
-          placeholder="Enter the keyword for search the tracks"
-          required
-        />
-      </div>
-      <button type="submit" className="btn btn--search" disabled={!searchInput}>
-        Search
-      </button>
-    </form>
+    <Flex as={"form"} onSubmit={(e) => handleSearchSubmit(e, currentAccessToken)} w={"100%"}>
+      <Input
+        type="text"
+        placeholder="Enter the keyword for search the tracks"
+        marginRight={2}
+        borderRadius="full"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+        required
+      />
+      <IconButton
+        isRound
+        type={"submit"}
+        variant={"ghost"}
+        icon={<Search2Icon />}
+        aria-label="search"
+      />
+    </Flex>
   );
 };
 
