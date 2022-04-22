@@ -23,7 +23,7 @@ const requestAuth = () => {
     client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
     scope: "playlist-modify-private",
     // eslint-disable-next-line no-undef
-    redirect_uri: process.env.REACT_APP_SPOTIFY_REDIRECT_URI,
+    redirect_uri: window.location.href,
     state: state,
   };
   const url = generateAuthUrl(params);
