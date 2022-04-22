@@ -6,12 +6,12 @@
 
 * Search for tracks that you love
 * Can create playlists for tracks that you choose
-* Can see display name and profile picture of your Spotify account
-* Dark Mode / Light Mode feature for switching them
 
 ### Bonuses Features~
 
-* TBC
+* Can see display name and profile picture of your Spotify account
+* Dark Mode / Light Mode feature for switching them
+* To be continued
 
 ## Built with
 
