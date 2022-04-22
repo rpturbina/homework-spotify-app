@@ -1,13 +1,19 @@
 import { Flex, Link } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
-import LoginButton from "../LoginButton";
+import SwitchTheme from "../SwitchTheme";
 
 const Header = ({ children }) => {
   const isLoggedIn = useSelector((state) => state.accessToken);
 
   return (
-    <Flex as="header" justifyContent="space-between" paddingBlock="1.5rem">
+    <Flex
+      as="header"
+      justifyContent="space-between"
+      alignItems="center"
+      paddingBlock="1rem"
+      columnGap="0.5rem"
+    >
       {isLoggedIn ? (
         <>{children}</>
       ) : (
@@ -15,7 +21,7 @@ const Header = ({ children }) => {
           <Link fontSize="xl" fontWeight="black" href="/" _hover={{ opacity: 0.8 }}>
             UrSpotify
           </Link>
-          <LoginButton />
+          <SwitchTheme />
         </>
       )}
     </Flex>
