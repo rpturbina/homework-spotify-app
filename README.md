@@ -23,7 +23,6 @@
 
 ### Environment Variables
 
-* `REACT_APP_SPOTIFY_REDIRECT_URI` contains the app Base URL for e.g `https://localhost:3000/` for local development
 * `REACT_APP_SPOTIFY_CLIENT_ID` contains Spotify Client ID. You can get your Spotify Client ID from [here](https://developer.spotify.com/dashboard/applications).
 
 ### Run on Local
