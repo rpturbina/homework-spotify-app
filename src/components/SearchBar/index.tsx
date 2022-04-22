@@ -35,12 +35,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Flex
-      as="form"
-      onSubmit={(e) => handleSearchSubmit(e, currentAccessToken)}
-      width="100%"
-      marginRight="1rem"
-    >
+    <Flex as="form" onSubmit={(e) => handleSearchSubmit(e, currentAccessToken)} width="80%">
       <Input
         type="text"
         placeholder="Enter the keyword for search the tracks"

@@ -12,7 +12,7 @@ const Header = ({ children }) => {
       justifyContent="space-between"
       alignItems="center"
       paddingBlock="1rem"
-      columnGap="2rem"
+      columnGap="1rem"
     >
       {isLoggedIn ? (
         <>{children}</>
