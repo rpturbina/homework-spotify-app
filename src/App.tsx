@@ -2,14 +2,15 @@ import CreatePlaylist from "./pages/CreatePlaylist";
 import LandingPage from "./pages/LandingPage";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 /**
- * TODO: Homework-Module-5-Session-3
- * * Add typescript to your app
- * * Convert the Tracks component and Search API calls to Typescript. Don't use typescript types any for this, instead write your own definitions.
+ * TODO: Homework-Module-6-Session-1
+ * * Write a test for Tracks component. Verify all components are rendered correctly.
+ * * (Bonus) Write a test for Search API function. Use the mock server, and fire the request to the mock server instead.
  */
 
 const App = () => {
-  const isLoggedIn = useSelector((state) => state.accessToken);
+  const isLoggedIn = useSelector((state: RootState) => state.accessToken);
 
   return (
     <div className="App">

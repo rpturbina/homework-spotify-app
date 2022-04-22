@@ -4,6 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 6 - Session 1 - Testing**
+
+* Write a test for Tracks component. Verify all components are rendered correctly.
+* (Bonus) Write a test for Search API function. Use the mock server, and fire the request to the mock server instead.
+
 ### **Homework - Module 5 - Session 3 - Typescript**
 
 * Add typescript to your app

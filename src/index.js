@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/provider";
-import { localStorageManager, theme } from "@chakra-ui/react";
+import { ChakraProvider, localStorageManager, theme } from "@chakra-ui/react";
 
 import App from "./App";
 import store from "./redux/store";

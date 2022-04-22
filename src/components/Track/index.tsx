@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import millisToMinutesAndSeconds from "../../utils/millisToMinutesAndSeconds";
 import { selectTrack } from "../../redux/actions";
-
 import { RootState, AppDispatch } from "../../redux/store";
 
-interface Props {
+export interface TrackProps {
   imageUrl: string;
   albumName: string;
   songTitle: string;
@@ -15,7 +14,7 @@ interface Props {
   trackUri: string;
 }
 
-const Track = (props: Props) => {
+const Track = (props: TrackProps) => {
   const { imageUrl, albumName, songTitle, songArtist, songDuration, trackUri } = props;
 
   const dispatch: AppDispatch = useDispatch();
