@@ -29,7 +29,7 @@ const CreatePlaylist = () => {
   const currentTracksResult = useSelector((state) => state.searchTracksResult);
 
   return (
-    <Stack minHeight="100vh" padding="1rem" minWidth="300px">
+    <Stack minHeight="100vh" paddingBlock="1rem" paddingInline="2rem" minWidth="300px">
       <Header>
         <Link fontSize="xl" fontWeight="black" href="/" _hover={{ opacity: 0.8 }}>
           UrSpotify
