@@ -3,20 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 
 import millisToMinutesAndSeconds from "../../utils/millisToMinutesAndSeconds";
 import { selectTrack } from "../../redux/actions";
+import { RootState, AppDispatch } from "../../redux/store";
 
-const Track = (props) => {
+export interface TrackProps {
+  imageUrl: string;
+  albumName: string;
+  songTitle: string;
+  songArtist: string;
+  songDuration: number;
+  trackUri: string;
+}
+
+const Track = (props: TrackProps) => {
   const { imageUrl, albumName, songTitle, songArtist, songDuration, trackUri } = props;
 
-  const dispatch = useDispatch();
-  const currentSelectedTracks = useSelector((state) => state.selectedTracks);
+  const dispatch: AppDispatch = useDispatch();
+  const currentSelectedTracks = useSelector((state: RootState) => state.selectedTracks);
 
-  const currentLoadingState = useSelector((state) => state.loadingState);
+  const currentLoadingState = useSelector((state: RootState) => state.loadingState);
 
-  const isSelected = (trackUri) => {
-    return currentSelectedTracks.some((selected) => selected.uri === trackUri);
+  const isSelected = (trackUri: string) => {
+    return currentSelectedTracks.some((selected: { uri: string }) => selected.uri === trackUri);
   };
 
-  const handleSelectTrack = (trackUri) => {
+  const handleSelectTrack = (trackUri: string) => {
     const track = {
       title: songTitle,
       artist: songArtist,
@@ -28,12 +38,14 @@ const Track = (props) => {
       return dispatch(selectTrack([...currentSelectedTracks, track]));
     }
 
-    const newSelected = currentSelectedTracks.filter((selected) => selected.uri !== track.uri);
+    const newSelected = currentSelectedTracks.filter(
+      (selected: { uri: string }) => selected.uri !== track.uri
+    );
     return dispatch(selectTrack(newSelected));
   };
 
   return (
-    <SlideFade in={!currentLoadingState} offsetY="50px" unmountOnExit={currentLoadingState}>
+    <SlideFade in={!currentLoadingState} offsetY="400" unmountOnExit={currentLoadingState}>
       <Flex
         as="li"
         columnGap="1rem"
