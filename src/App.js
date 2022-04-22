@@ -3,22 +3,22 @@ import LandingPage from "./pages/LandingPage";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 /**
- * TODO: Homework-Module-5-Session-2
- * * Start using UI component library/just using CSS. You're free to choose any library/just using CSS.
- * * You can freely choose which components that will be changed
- * * Example: modify search input to material-ui
+ * TODO: Homework-Module-5-Session-3
+ * * Add typescript to your app
+ * * Convert the Tracks component and Search API calls to Typescript. Don't use typescript types any for this, instead write your own definitions.
  */
 
 const App = () => {
-  const currentAccessToken = useSelector((state) => state.accessToken);
+  const isLoggedIn = useSelector((state) => state.accessToken);
+
   return (
     <div className="App">
       <Switch>
         <Route exact path="/create-playlist">
-          {currentAccessToken ? <CreatePlaylist /> : <Redirect to="/" />}
+          {isLoggedIn ? <CreatePlaylist /> : <Redirect to="/" />}
         </Route>
         <Route exact path="/">
-          {currentAccessToken ? <Redirect to="/create-playlist" /> : <LandingPage />}
+          {isLoggedIn ? <Redirect to="/create-playlist" /> : <LandingPage />}
         </Route>
       </Switch>
     </div>

@@ -4,6 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## **Update**
 
+### **Homework - Module 5 - Session 3 - Typescript**
+
+* Add typescript to your app
+* Convert the Tracks component and Search API calls to Typescript. Don't use typescript types any for this, instead write your own definitions.
+
 ### **Homework - Module 5 - Session 2 - UI Component Library**
 
 * Start using UI component library/just using CSS. You're free to choose any library/just using CSS.

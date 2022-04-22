@@ -5,7 +5,7 @@ import { BASE_SPOTIFY_API_URL } from "../constant/url";
  * @param {string} accessToken access_token for authentication
  * @returns current user's profile
  */
-const getUser = async (accessToken) => {
+const getUser = async (accessToken: string) => {
   try {
     const fetchOptions = {
       method: "GET",
@@ -27,11 +27,19 @@ const getUser = async (accessToken) => {
  * @param {object} data data object must contain accessToken, query, and LIMIT
  * @returns object that contain track items
  */
-const searchTracks = async ({ accessToken, query, LIMIT = 10 }) => {
+const searchTracks = async ({
+  accessToken,
+  query,
+  LIMIT,
+}: {
+  accessToken: string;
+  query: string;
+  LIMIT: number;
+}) => {
   const params = new URLSearchParams({
-    type: "track",
-    q: query,
-    limit: LIMIT,
+    type: "track" as string,
+    q: query as string,
+    limit: LIMIT.toString() as string,
   });
   const fetchOptions = {
     method: "GET",
@@ -46,11 +54,24 @@ const searchTracks = async ({ accessToken, query, LIMIT = 10 }) => {
   return response.tracks.items;
 };
 
+interface Playlist {
+  title: string;
+  description: string;
+}
+
 /**
  *  Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)
  * @param {object} data data object must contain userId, playlist, accessToken
  */
-const postPlaylist = async ({ userId, playlist, accessToken }) => {
+const postPlaylist = async ({
+  accessToken,
+  userId,
+  playlist,
+}: {
+  accessToken: string;
+  userId: string;
+  playlist: Playlist;
+}) => {
   try {
     const data = {
       name: playlist.title,
@@ -73,11 +94,25 @@ const postPlaylist = async ({ userId, playlist, accessToken }) => {
   }
 };
 
+interface selectedTracks {
+  uri: string;
+  title: string;
+  artist: string;
+}
+
 /**
  *  Add one or more items to a user's playlist.
  * @param {object} data data object must contain playlistId, selectedTracks, accessToken
  */
-const postItemsToPlaylist = async ({ playlistId, selectedTracks, accessToken }) => {
+const postItemsToPlaylist = async ({
+  playlistId,
+  selectedTracks,
+  accessToken,
+}: {
+  playlistId: string;
+  selectedTracks: selectedTracks[];
+  accessToken: string;
+}) => {
   try {
     const data = {
       uris: selectedTracks.map((track) => track.uri),
