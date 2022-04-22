@@ -46,7 +46,7 @@ const Track = (props: Props) => {
   };
 
   return (
-    <SlideFade in={!currentLoadingState} offsetY="50px" unmountOnExit={currentLoadingState}>
+    <SlideFade in={!currentLoadingState} offsetY="400" unmountOnExit={currentLoadingState}>
       <Flex
         as="li"
         columnGap="1rem"
